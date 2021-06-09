@@ -10,6 +10,15 @@ const studentSchema = new Schema({
         type: String,
         required: true,
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
     courses: [{
         type: Schema.Types.ObjectId,
         ref: 'Course',
