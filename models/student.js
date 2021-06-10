@@ -19,6 +19,11 @@ const studentSchema = new Schema({
         type: String,
         required: true,
     },
+    parentMail: {
+        type: String,
+        required: true,
+        unique: true
+    },
     courses: [{
         type: Schema.Types.ObjectId,
         ref: 'Course',
