@@ -1,0 +1,80 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+   <%- include('../includes/navigation.ejs') %>
+
+    <main>
+        <!-- <% if (errorMessage) { %>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %> -->
+        <form class="login-form" action="/signup" method="POST" novalidate>
+            <div class="form-control">
+                <label for="email">E-Mail</label>
+                <input 
+                    class="<%= validationErrors.find(e => e.param === 'email') ? 'invalid' : '' %>"
+                    type="email" 
+                    name="email" 
+                    id="email">
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input 
+                    class="<%= validationErrors.find(e => e.param === 'password') ? 'invalid' : '' %>"
+                    type="email" 
+                    name="email" 
+                    id="email">
+            </div>
+            <div class="form-control">
+                <label for="confirmPassword">Confirm Password</label>
+                <input 
+                    class="<%= validationErrors.find(e => e.param === 'confirmPassword') ? 'invalid' : '' %>"
+                    type="email" 
+                    name="email" 
+                    id="email">
+            </div>
+
+            <script type="text/javascript">
+                function checkStudent() {
+                    var chkYes = document.getElementById("student");
+                    var parentMail = document.getElementById("parentMail");
+                    var dvStatus = document.getElementById("dvStatus");
+                    parentMail.style.display = chkYes.checked ? "block" : "none";
+                    dvStatus.style.display = chkYes.checked ? "block" : "none";
+                    var flag = document.getElementById("chckUser");
+                    flag.value = chkYes.checked ? "true" : "false";
+                }
+            </script>
+
+            <div>
+                <label class="container">Student
+                    <input type="radio" id="student" name="studentRadio" onclick="checkStudent()">
+                    <span class="checkmark"></span>
+                  </label>
+                  
+                  <label class="container">Teacher
+                    <input type="radio" id="teacher" name="teacherRadio" onclick="checkStudent()">
+                    <span class="checkmark"></span>
+                  </label>
+            </div>
+
+            <div id="parentMail" style="display: none">
+                Parent Email:
+                <input type="text" id="inParentMail" />
+            </div>
+
+            <div id="dvStatus" style="display: none">
+                Status:
+                <input type="text" id="status" />
+            </div>
+
+            <input type="hidden"  value="<%= csrfToken %>" name="_csrf">
+            <input type="hidden"  value="false" name="chckUser" id="chckUser">
+
+
+            <button class="btn" type="submit">Signup</button>
+        </form>
+    </main>
+<%- include('../includes/end.ejs') %>

@@ -7,13 +7,24 @@ const courseSchema = new Schema({
         required: true,
     },
     session: {
-        type: String,
+        type: Date,
         required: true,
+    },
+    description: {
+        type: String
+    },
+    pricePerSession: {
+        type: Number,
+        required: true
     },
     students: [{
         type: Schema.Types.ObjectId,
         ref: 'Student'
     }],
+    teacherId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Teacher',
+    }
 
 });
 

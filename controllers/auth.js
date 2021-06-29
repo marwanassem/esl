@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 
+const User = require('../models/user');
 const Student = require('../models/student');
 
 exports.getSignup = (req, res, next) => {
@@ -16,8 +17,13 @@ exports.postSignup = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPass;
-    const parentMail = req.body.parentMail;
-    const status = req.body.status;
+
+    // if (req.body.chckUser == "true") {
+    //     const status = req.body.status;
+    //     const parentMail = req.body.parentMail;
+    // }
+
+    
 
     const errors = validationResult(req);
 
