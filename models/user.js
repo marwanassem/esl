@@ -1,4 +1,3 @@
-var util = require('util');  
 var mongoose = require('mongoose');  
 var Schema = mongoose.Schema;  
 

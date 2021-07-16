@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const User = require('./user');
 
 const Teacher = User.discriminator('Teacher', new mongoose.Schema({
-    // isAdmin: {
-    //     type: Boolean,
-    //     default: false
-    // }
+    isActive: {
+        type: Boolean,
+        default: true
+    }
 }));
 
 module.exports = mongoose.model('Teacher');

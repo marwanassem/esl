@@ -1,0 +1,52 @@
+<!-- <%- include('../includes/head.ejs') %> -->
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <!-- <%- include('../includes/navigation.ejs') %> -->
+
+            <main>
+                <% if (teachers.length > 0) { %>
+                    <div class="grid">
+                        <% for (let teacher of teachers) { %>
+                            <article class="card product-item">
+                                <header class="card__header">
+                                    <h1 class="product__title">
+                                        <%= teacher.name %>
+                                    </h1>
+                                </header>
+                                <div class="card__content">
+                                    <h2 class="product__price">$
+                                        <%= teacher.courses %>
+                                    </h2>
+                                    <p class="product__description">
+                                        <%= teacher.email %>
+                                    </p>
+                                </div>
+
+                                <% for (let course of teacher.courses) { %>
+                                    <div>
+                                        <p><%= course.title %></p>
+                                    </div>
+                                <% } %>
+
+                                <div class="card__actions">
+                                    <a href="/edit-teacher/<%= teacher._id %>?edit=true" class="btn">Edit</a>
+                                    <!-- <form action="/admin/delete-product" method="POST"> -->
+                                        <input type="hidden" value="<%= teacher._id %>" name="courseId">
+                                        <button class="btn" type="button" onclick="deleteProduct(this)">Delete</button>
+                                    <!-- </form> -->
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>No Teachers for now!</h1>
+                    <% } %>
+
+                        <a href="/add-teacher">Add new Teacher to the fam!</a>
+
+            </main>
+            <%- include('../includes/end.ejs') %>
+
+            <script src="/js/admin.js"></script>

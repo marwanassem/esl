@@ -17,12 +17,8 @@ exports.postSignup = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPass;
-
-    // if (req.body.chckUser == "true") {
-    //     const status = req.body.status;
-    //     const parentMail = req.body.parentMail;
-    // }
-
+    const status = req.body.status;
+    const parentMail = req.body.parentMail;
     
 
     const errors = validationResult(req);

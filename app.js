@@ -10,6 +10,7 @@ const path = require('path');
 
 // Project files
 const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin');
 const courseRoutes = require('./routes/courses');
 const errorController = require('./controllers/error');
 
@@ -56,6 +57,7 @@ app.use((req, res, next) => {
 
 
 // Defining routes
+app.use(adminRoutes);
 app.use(authRoutes);
 app.use(courseRoutes);
 app.use(errorController.get404);

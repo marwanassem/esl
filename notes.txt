@@ -1,0 +1,18 @@
+in edit-course.ejs (while adding) => need to render all the teachers names
+    in order to return the teacher name to the back again.
+
+in admin controller (postAddCourse) 
+=> need to find the instructor by name then append in HIS courses the newly course id
+
+in teacher-dash.ejs 
+=> I need to show for every teacher his courses.
+
+ERROR HANDLING  
+
+css classes need to change in the EJS'
+
+=> deactivation option of each teacher instead of editing
+
+=> validation of course price isnt working
+
+=> CSRF tokens

@@ -6,7 +6,7 @@ const authController = require('../controllers/auth');
 const { body } = require('express-validator/check');
 const Student = require('../models/student');
 
-router.get('/signup');
+router.get('/signup', authController.getSignup);
 router.post('/signup',
     [
         body('email')
@@ -38,5 +38,9 @@ router.post('/signup',
     ],
     authController.postSignup
 );
+
+router.get('/login', authController.getLogin);
+router.post('/login', authController.postLogin);
+
 
 module.exports = router;
