@@ -13,6 +13,7 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const courseRoutes = require('./routes/courses');
 const errorController = require('./controllers/error');
+const User = require('./models/user');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -35,16 +36,31 @@ app.use(session({
     secret: 'my secret',
     resave: false,
     saveUninitialized: false,
-    store: store
+    store: store,
+    cookie: {
+        expires: new Date(Date.now() + 1200000)
+    }
 }));
+app.use((req, res, next) => {
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    next();
+});
 
 app.use((req, res, next) => {
     if (!req.session.user){
+        req.session.isLoggedIn = false;
+        // return next();
+    }
+    if (!req.session.isLoggedIn) {
         return next();
     }
     User.findById(req.session.user._id)
     .then(user => {
         if (!user){
+            return next();
+        }
+        if (user.isAdmin) {
+            req.session.isAdmin = true;
             return next();
         }
         req.user = user;
@@ -63,7 +79,7 @@ app.use(courseRoutes);
 app.use(errorController.get404);
 
 mongoose
-    .connect(MONGODB_URI, {useNewUrlParse: true, useUnifiedTopology: true})
+    .connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(result => {
         console.log('Connected');
         app.listen(process.env.PORT || 8000);

@@ -3,11 +3,16 @@ const Teacher = require('../models/teacher');
 
 
 exports.getHome = (req, res, next) => {
+    let username = null;
+    if (req.session.isLoggedIn) {
+        username = req.session.user.name
+    }
     Course.find().then(courses => {
         return res.render('index', {
-            path: '/courses',
-            pageTitle: 'Courses',
+            pageTitle: 'ESL - Online Platform',
             courses: courses,
+            isAuthenticated: req.session.isLoggedIn,
+            username: username
         });
     }).catch(err => console.log(err));
 };

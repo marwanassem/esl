@@ -7,7 +7,6 @@ const Course = require('../models/course');
 
 exports.getCoursesDash = (req, res, next) => {
     Course.find().populate('teacherId').then(courses => {
-        console.log(courses);
         return res.render('admin/courses-dash', {
             courses: courses,
             pageTitle: 'Courses Dashboard'
@@ -30,10 +29,11 @@ exports.getAddCourse = (req, res, next) => {
 };
 
 exports.postAddCourse = (req, res, next) => {
-    console.log(req.body);
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
-        console.log(errors)
+        console.log("IN POST REQ");
+        console.log(errors);
         Teacher.find().then(teachers =>{
             return res.render('admin/edit-courses', {
                 instructors: teachers,
@@ -59,17 +59,17 @@ exports.postAddCourse = (req, res, next) => {
             session: session,
             description: description,
             teacherId: instructor,
-            pricePerSession: parseInt(req.body.price), 
+            pricePerSession: price, 
         });
         return course.save().then(result => {
-             res.redirect('courses-dash');
+            console.log('Course Added.');
+            res.redirect('courses-dash');
         });
     }).catch(err => console.log(err));
 }
 
 exports.getTeachersDash = (req, res, next) => {
     Teacher.find().populate('courses').then(teachers => {
-        console.log(teachers);
         return res.render('admin/teachers-dash', {
             teachers: teachers,
             pageTitle: 'Teachers Dashboard'
@@ -89,7 +89,6 @@ exports.getAddTeacher = (req, res, next) => {
 
 exports.postAddTeacher = (req, res, next) => {
     const name = req.body.name;
-    console.log('req: %j' , req.body);
     const email = req.body.email;
     const password = req.body.password;
     const errors = validationResult(req);
@@ -100,10 +99,7 @@ exports.postAddTeacher = (req, res, next) => {
             pageTitle: 'New Teacher to the fam.',
             path: 'add-teacher',
         });
-    }
-    console.log('-----------------------------');
-    console.log(req);
-    
+    }    
     bcrypt.hash(password, 12)   
         .then(hashedPass => {
             const teacher = new Teacher({

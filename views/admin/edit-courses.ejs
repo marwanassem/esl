@@ -36,7 +36,7 @@
 
             <div class="form-control">
                 <label for="price">Price per session</label>
-                <input type="number" name="price" id="price" step="10" value="<% if (editing || hasError) { %><%= course.price %><% } %>">
+                <input type="number" name="price" id="price" step="1" value="<% if (editing || hasError) { %><%= course.pricePerSession %><% } %>">
             </div>
 
             <div class="form-control">

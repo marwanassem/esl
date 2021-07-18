@@ -1,49 +1,62 @@
-<%- include('../includes/head.ejs') %>
+<%- include('../includes/links.ejs') %>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/auth.css">
 </head>
 
 <body>
-   <!-- <%- include('../includes/navigation.ejs') %> -->
-
     <main>
+        <div class="centered">
+            <form class="auth-form" action="/signup" method="POST" novalidate>
+                <div>
+                    <label for="name">Name</label>
+                    <input 
+                        class="form-control centered"
+                        type="text" 
+                        name="name" 
+                        id="name">
+                </div>
+                <div>
+                    <label for="email">E-Mail</label>
+                    <input 
+                        class="form-control centered"
+                        type="email" 
+                        name="email" 
+                        id="email">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input 
+                        class="form-control centered"
+                        type="password" 
+                        name="password" 
+                        id="password">
+                </div>
+                <div >
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input 
+                        class="form-control centered"
+                        type="password" 
+                        name="confirmPassword" 
+                        id="confirmPassword">
+                </div>
+    
+                <div id="parentMail">
+                    Parent Email
+                    <input name="parentMail" type="text" class="form-control centered"/>
+                </div>
+
+                <div class="centered">
+                    <label for="status">Status</label>
+                    <select name="statuspicker">
+                        <option name="status" value="0">..</option>
+                        <option name="status" value="school">School</option>
+                        <option name="status" value="center">Center</option>
+                        <option name="status" value="private">Private</option>
+                    </select>
+                </div>
+    
+                <button class="btn" type="submit">Signup</button>
+            </form>
+        </div>
         
-        <form class="login-form" action="/signup" method="POST" novalidate>
-            <div class="form-control">
-                <label for="email">E-Mail</label>
-                <input 
-                    
-                    type="email" 
-                    name="email" 
-                    id="email">
-            </div>
-            <div class="form-control">
-                <label for="password">Password</label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    id="password">
-            </div>
-            <div class="form-control">
-                <label for="confirmPassword">Confirm Password</label>
-                <input 
-                    type="password" 
-                    name="password1" 
-                    id="password1">
-            </div>
-
-
-            <div class="form-control" id="parentMail">
-                Parent Email:
-                <input type="text" id="inParentMail" />
-            </div>
-
-            <div class="form-control" id="dvStatus">
-                Status:
-                <input type="text" id="status" />
-            </div>
-
-            <button class="btn" type="submit">Signup</button>
-        </form>
     </main>
 <%- include('../includes/end.ejs') %>

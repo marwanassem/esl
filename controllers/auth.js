@@ -17,9 +17,8 @@ exports.postSignup = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPass;
-    const status = req.body.status;
+    const status = req.body.statuspicker;
     const parentMail = req.body.parentMail;
-    
 
     const errors = validationResult(req);
 
@@ -102,4 +101,12 @@ exports.postLogin = (req, res, next) => {
         error.httpStatusCode = 500;
         return next(error);
     });
-}
+};
+
+exports.postLogout = (req, res, next) => {
+    console.log(req.session);
+    req.session.destroy((err) => {
+        console.log(err);
+        res.redirect('/');
+    });
+};

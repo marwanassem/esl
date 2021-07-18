@@ -34,13 +34,21 @@ router.post('/signup',
 
         body('name')
             .trim()
-            .not().isEmpty()
+            .not().isEmpty(),
+
+        body('statusPicker').custom((value, {reg}) => {
+            if (value === 0) {
+                throw new Error("Please select your current status.");
+            }
+            return true;
+        })
     ],
     authController.postSignup
 );
 
 router.get('/login', authController.getLogin);
 router.post('/login', authController.postLogin);
+router.post('/logout', authController.postLogout);
 
 
 module.exports = router;

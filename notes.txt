@@ -16,3 +16,10 @@ css classes need to change in the EJS'
 => validation of course price isnt working
 
 => CSRF tokens
+
+=> guest mode and logged in mode
+make sure you can't enroll in any course unless you're logged in
+
+=> add number of lectures (total hours)
+
+=> flaticon add it to the course model as a string

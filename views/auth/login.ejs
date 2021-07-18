@@ -1,6 +1,5 @@
-<%- include('../includes/head.ejs') %>
+<%- include('../includes/links.ejs') %>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/product.css">
 </head>
 
 <body>
@@ -11,7 +10,7 @@
 
     <div class="centered">
 
-        <form action="/login" method="POST" class="post-form" novalidate>
+        <form action="/login" method="POST" class="auth-form" novalidate>
             <div class="form-group">
                 <label for="email">E-Mail</label>
                 <input 
@@ -23,7 +22,7 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input 
-                    class="form-control centered" style="width: 25rem;"
+                    class="form-control centered"
                     type="password" 
                     name="password" 
                     id="password" >
@@ -41,4 +40,4 @@
 
         
     </main>
-<%- include('../includes/end.ejs') %>
+<!-- <%- include('../includes/end.ejs') %> -->

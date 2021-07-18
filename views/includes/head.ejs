@@ -1,14 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><%= pageTitle %></title>
-    <link rel="preconnect" href="https://fonts.gstatic.com/">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons-core.min.css">
-    <link rel="stylesheet" href="css/A.animate.css%2bflaticon.css%2btiny-slider.css%2bglightbox.min.css%2baos.css%2bstyle.css%2cMcc.HFFLwOuYCQ.css.pagespeed.cf.AZpkzFaEmU.css" />
+<div class="top-wrap">
+    <div class="container">
+    <div class="row">
+    <div class="col-md col-xl-5 d-flex align-items-center">
+    <a class="navbar-brand align-items-center" href="index-2.html">
+    Academia
+    <span>Online Education &amp; Learning</span>
+    </a>
+    </div>
+    <div class="col-md d-flex align-items-center">
+    <div class="con d-flex">
+    <div class="icon"><span class="flaticon-clock"></span></div>
+    <div class="text">
+    <span>Monday - Friday</span>
+    <strong>8:00AM-8:00PM</strong>
+    </div>
+    </div>
+    </div>
+    <div class="col-md d-flex align-items-center">
+    <div class="con d-flex">
+    <div class="icon"><span class="flaticon-telephone"></span></div>
+    <div class="text">
+    <span>Call Us</span>
+    <strong>+2 392 3929 210</strong>
+    </div>
+    </div>
+    </div>
+    <!-- <div class="col-md d-flex justify-content-end align-items-center">
+    <div class="social-media">
+    <p class="mb-0 d-flex">
+    <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+    <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+    <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+    <a href="#" class="d-flex align-items-center justify-content-center"><span class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+    </p>
+    </div>
+    </div> -->
+    <div class="col-md d-flex align-items-right">
+    <div class="con d-flex">
+    <div class="icon"><span class="flaticon-telephone"></span></div>
+    <div class="text">
+    <% if (!isAuthenticated) { %>
+            <span><a href="/login" style="color: white;">Login</a></span>
+            <!-- <strong>+2 392 3929 210</strong> -->
+    <% } else { %>
+            <span>
+                <form action="/logout" method="post">
+                <button type="submit" style="background-color: transparent; border: transparent; color: white;">
+                    <a>Logout</a>
+                </button>
+            </form></span>
+    <% } %>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>

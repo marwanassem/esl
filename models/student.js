@@ -10,7 +10,6 @@ const Student = User.discriminator('Student', new mongoose.Schema({
     parentMail: {
         type: String,
         required: true,
-        unique: true
     },
 }));
 
