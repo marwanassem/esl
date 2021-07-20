@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 
 const courseController = require('../controllers/course');
-const { body } = require('express-validator/check');
 const Course = require('../models/course');
+const { body } = require('express-validator/check');
 
 router.get('/', courseController.getHome);
 router.get('/courses', courseController.getCourses);

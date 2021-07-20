@@ -18,12 +18,13 @@ exports.getHome = (req, res, next) => {
 };
 
 exports.getCourses = (req, res, next) => {
-    Course.find()
+    Course.find().populate('teacherId')
         .then(courses => {
             return res.render('course/courses', {
                 path: '/courses',
                 pageTitle: 'Courses',
                 courses: courses,
+                isAuthenticated: req.session.isLoggedIn,
             });
         }).catch(err => {
             console.log(err);
@@ -92,9 +93,11 @@ exports.getViewCourse = (req, res, next) => {
     // else just view the course and its description
 
     const courseId = req.params.courseId;
-    Course.find({courseId: courseId}).populate('teacherId')
+
+    Course.findById(courseId).populate('teacherId')
         .then(course => {
-            return res.render('courses/view-course', {
+            console.log(course);
+            return res.render('course/view-course', {
                 pageTitle: 'View Course',
                 course: course,
             });
