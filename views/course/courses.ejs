@@ -2,8 +2,6 @@
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/navigation.ejs') %>
 
-
-
 <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
 <div class="overlay"></div>
 <div class="container">
@@ -27,7 +25,7 @@
             <div class="d-flex">
             <div class="icon"><span class="flaticon-engineer"></span></div>
             <div class="text">
-            <h2><a href="/courses/<%= course._id %>"><%= course.name %></a></h2>
+            <h2><a href="/<%= course._id %>"><%= course.name %></a></h2>
             <div class="author-wrap d-flex align-items-center">
             <span class="author"><%= course.teacherId.name %></span>
             </div>
@@ -43,7 +41,6 @@
                 class="btn d-block btn-primary btn-outline-primary py-3">
                 Enroll Now!
             </a>
-            <input type="hidden" value="course._id" name="courseId">
 
             </div>
             </div>

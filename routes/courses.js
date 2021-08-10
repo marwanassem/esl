@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 
 const courseController = require('../controllers/course');
-const Course = require('../models/course');
 const { body } = require('express-validator/check');
 
 router.get('/', courseController.getHome);
@@ -20,6 +19,6 @@ router.post('/add-course',
         })
     ],
     courseController.postAddCourse);
-router.get('/courses/:courseId', courseController.getViewCourse);
+// router.get('/:courseId', courseController.getViewCourse);
 
 module.exports = router;

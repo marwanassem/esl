@@ -12,6 +12,7 @@ const path = require('path');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const courseRoutes = require('./routes/courses');
+const studentRoutes = require('./routes/student');
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
@@ -76,6 +77,7 @@ app.use((req, res, next) => {
 app.use(adminRoutes);
 app.use(authRoutes);
 app.use(courseRoutes);
+app.use(studentRoutes);
 app.use(errorController.get404);
 
 mongoose

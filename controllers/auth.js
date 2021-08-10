@@ -81,8 +81,8 @@ exports.postLogin = (req, res, next) => {
             if (doMatch) {
                 req.session.isLoggedIn = true;
                 req.session.user = student;
-                return req.session.save(err => {
-                    console.log(err);
+                return req.session.save(result => {
+                    console.log('saving session err' + result);
                     res.redirect('/');
                 });
             }
@@ -92,7 +92,7 @@ exports.postLogin = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            console.log('Password error' + err);
             return res.redirect('/login');
         });
     })

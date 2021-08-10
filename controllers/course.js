@@ -12,7 +12,8 @@ exports.getHome = (req, res, next) => {
             pageTitle: 'ESL - Online Platform',
             courses: courses,
             isAuthenticated: req.session.isLoggedIn,
-            username: username
+            username: username,
+            user: req.user
         });
     }).catch(err => console.log(err));
 };
@@ -88,20 +89,18 @@ exports.postAddCourse = (req, res, next) => {
 };
 
 exports.getViewCourse = (req, res, next) => {
-    // if admin display delete/edit button
-    // if student display enroll button
-    // else just view the course and its description
-
     const courseId = req.params.courseId;
-
+    console.log('getViewCourse ');
+    console.log(req.params);
     Course.findById(courseId).populate('teacherId')
         .then(course => {
-            console.log(course);
             return res.render('course/view-course', {
                 pageTitle: 'View Course',
                 course: course,
             });
         })
         .catch(err => console.log(err))
-}
+};
+
+
 
