@@ -81,7 +81,7 @@ app.use(studentRoutes);
 app.use(errorController.get404);
 
 mongoose
-    .connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+    .connect(MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
     .then(result => {
         console.log('Connected');
         app.listen(process.env.PORT || 8000);

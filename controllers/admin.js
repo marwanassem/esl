@@ -5,6 +5,10 @@ const User = require('../models/user');
 const Teacher = require('../models/teacher');
 const Course = require('../models/course');
 
+exports.getAdminIndex = (req, res, next) => {
+    return res.render('admin/admin-index');
+};
+
 exports.getCoursesDash = (req, res, next) => {
     Course.find().populate('teacherId').then(courses => {
         return res.render('admin/courses-dash', {
@@ -113,5 +117,11 @@ exports.postAddTeacher = (req, res, next) => {
             res.redirect('/teachers-dash');
         })
         .catch(err => console.log(err));
-}
+};
+
+exports.getStudentsDash = (req, res, next) => {
+    // filter students by (private, school or center)
+    // render the list of students
+    // add an option to save an excel sheet with all of their info
+};
 

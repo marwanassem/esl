@@ -3,11 +3,12 @@ const express = require('express');
 const router = express.Router();
 
 const adminController = require('../controllers/admin');
-const { body } = require('express-validator/check');
+const { body } = require('express-validator');
 const isAdmin = require('../middleware/is_admin');
 const Course = require('../models/course');
 const teacher = require('../models/teacher');
 
+router.get('/admin', isAdmin, adminController.getAdminIndex);
 router.get('/courses-dash', isAdmin, adminController.getCoursesDash);
 router.get('/add-course', isAdmin, adminController.getAddCourse);
 router.post('/add-course',
@@ -29,6 +30,7 @@ router.post('/add-teacher', isAdmin, [
     body('password', 'Please enter a password with atleast 5 characters')
         .isLength({min: 5}).trim(),
 ], adminController.postAddTeacher);
+router.get('/students-dash');
 
 
 

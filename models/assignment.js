@@ -23,6 +23,9 @@ const assignmentSchema = new Schema({
     },
     link: {
         type: String
+    },
+    grade: {
+        type: Number
     }
 });
 

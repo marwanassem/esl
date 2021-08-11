@@ -68,21 +68,24 @@ exports.postLogin = (req, res, next) => {
         });
     }
 
-    Student.findOne({email: email})
-        .then(student => {
-            if (!student) {
+    User.findOne({email: email})
+        .then(user => {
+            if (!user) {
                 return res.status(422).render('auth/login', {
                     path: '/login',
                     pageTitle: 'Login',
                 });
         }
-        bcrypt.compare(password, student.password)
+        bcrypt.compare(password, user.password)
         .then(doMatch => {
             if (doMatch) {
                 req.session.isLoggedIn = true;
-                req.session.user = student;
+                req.session.user = user;
                 return req.session.save(result => {
-                    console.log('saving session err' + result);
+                    console.log('saving session err: ' + result);
+                    if (user.isAdmin) {
+                        return res.redirect('/admin');
+                    }
                     res.redirect('/');
                 });
             }
@@ -92,7 +95,6 @@ exports.postLogin = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log('Password error' + err);
             return res.redirect('/login');
         });
     })

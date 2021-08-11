@@ -1,4 +1,15 @@
-<%- include('../includes/links.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><%= pageTitle %></title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="preconnect" href="https://fonts.gstatic.com/">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../../stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../../../cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+        <link rel="stylesheet" href="/css/A.animate.css%2bflaticon.css%2btiny-slider.css%2bglightbox.min.css%2baos.css%2bstyle.css%2cMcc.HFFLwOuYCQ.css.pagespeed.cf.AZpkzFaEmU.css" />
+    </head>
 <%- include('../includes/head.ejs') %>
 <%- include('../includes/navigation.ejs') %>
 
@@ -8,12 +19,14 @@
   <div class="row no-gutters slider-text align-items-center justify-content-center">
     <div class="col-md-9 pt-5 mt-5 text-center">
       <div class="container" style="text-align: center; margin: 0 auto; border: 1px solid white; border-radius: 1rem;">
-        <h3>You're joining <%= course.name %></h3>
+        <h3><%= course.name %></h3>
         <span class="price"><sup>LE</sup> <span class="number"><%= course.pricePerSession %>/Class</span></span>
         <h6 style="color: red;"><%= course.teacherId.name %></h6>
         <p><%= course.description %></p>
         <% if (isAuthenticated) { %>
-          <a href="/courses/<%= course._id %>/enroll" class="btn btn-primary btn-outline-primry">Enroll Now</a>
+        <form action="/courses/<%= course._id %>/enroll" method="POST">
+          <button class="btn btn-primary btn-outline-primry">Enroll Now</button>
+        </form>
         <% } else { %>
             <small>Please Login to enroll</small>
         <% } %>

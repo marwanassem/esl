@@ -10,7 +10,6 @@ exports.getProfile = (req, res, next) => {
     const studentId = req.params.studentId;
     let studentCourses = [];
     Student.findById(studentId).then(student => {
-        console.log(student);
         if (!student) {
             return res.render('student/profile', {
                 pageTitle: 'Profile Info'
@@ -30,20 +29,28 @@ exports.getProfile = (req, res, next) => {
         return res.render('student/profile', {
             studentCourses: studentCourses,
             pageTitle: 'Profile Info',
+            user: req.user
         });
     })
     .catch(err => console.log(err));
 };
 
 exports.postEnroll = (req, res, next) => {
+    const student = req.user;
     const courseId = req.params.courseId;
-    console.log(req.query._id);
     Course.findById(courseId).then(course => {
         if (!course) {
             return res.render('404');
         }
-        course.studentCourses.push(req.query._id);
-        return course.save();
-    }).catch(err => console.log(err))
+        console.log(req.user);
+        student.courses.push(course);
+        course.students.push(student);
+        course.save();
+        return student.save();
+    })
+    .then(result => {
+        return res.redirect('/student/'+req.user._id);
+    })
+    .catch(err => console.log(err));
 };
 

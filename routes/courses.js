@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const courseController = require('../controllers/course');
-const { body } = require('express-validator/check');
+const { body } = require('express-validator');
 
 router.get('/', courseController.getHome);
 router.get('/courses', courseController.getCourses);
@@ -19,6 +19,6 @@ router.post('/add-course',
         })
     ],
     courseController.postAddCourse);
-// router.get('/:courseId', courseController.getViewCourse);
+router.get('/courses/:courseId', courseController.getViewCourse);
 
 module.exports = router;
