@@ -39,10 +39,7 @@ exports.getAddCourse = (req, res, next) => {
 
 exports.postAddCourse = (req, res, next) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
-        console.log("IN POST REQ");
-        console.log(errors);
         Teacher.find().then(teachers =>{
             return res.render('admin/edit-courses', {
                 instructors: teachers,
@@ -61,9 +58,8 @@ exports.postAddCourse = (req, res, next) => {
     let instructorMail = req.body.selectpicker;
     let instructor;
     Teacher.findOne({email: instructorMail}).then(teacher => {
-        instructor = teacher._id;
-    })
-    .then(result => { 
+        instructor = teacher;
+        console.log(instructor);
         const course = new Course({
             name: title,
             session: session,
@@ -71,15 +67,20 @@ exports.postAddCourse = (req, res, next) => {
             teacherId: instructor,
             pricePerSession: price, 
         });
-        return course.save().then(result => {
-            console.log('Course Added.');
-            res.redirect('courses-dash');
-        });
+        course.save();
+        teacher.courses.push(course);
+        return teacher.save();
+    })
+    .then(result => { 
+        console.log('Course Added.');
+        return res.redirect('courses-dash');
     }).catch(err => console.log(err));
-}
+};
 
 exports.getTeachersDash = (req, res, next) => {
-    Teacher.find().populate('courses').then(teachers => {
+    Teacher.find().populate('courses')
+    .then(teachers => {
+        console.log(teachers);
         return res.render('admin/teachers-dash', {
             teachers: teachers,
             pageTitle: 'Teachers Dashboard',
@@ -88,7 +89,7 @@ exports.getTeachersDash = (req, res, next) => {
     }).catch(err => {
         console.log(err);
     });
-}
+};
 
 exports.getAddTeacher = (req, res, next) => {
     return res.render('admin/add-teacher', {
@@ -126,6 +127,27 @@ exports.postAddTeacher = (req, res, next) => {
             res.redirect('/teachers-dash');
         })
         .catch(err => console.log(err));
+};
+
+exports.teacherActivity = (req, res, next) => {
+    const teacherId = req.body.teacherId;
+    Teacher.findById(teacherId).then(teacher => {
+        if (!teacher) {
+            throw new Error ('Error fetching the Teacher');
+        }
+        teacher.isActive = !teacher.isActive;
+        return teacher.save();
+    })
+    .then(result => {
+        Teacher.find().then(teachers => {
+            return res.render('admin/teachers-dash', {
+                teachers: teachers,
+                user: req.session.user,
+                pageTitle: 'Teachers Dashboard',
+            });
+        });
+    })
+    .catch(err => console.log(err));
 };
 
 exports.getStudentsDash = (req, res, next) => {

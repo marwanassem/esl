@@ -13,22 +13,29 @@
                     </header>
                     <div class="card__content">
                         <p class="product__description">
-                            <%= teacher.email %>
+                            <%= teacher.email %> 
                         </p>
                     </div>
-
-                    <% for (let course of teacher.courses) { %>
-                        <div>
-                            <p><%= course.title %></p>
-                        </div>
+                    <% if (teacher.courses.length > 0) { %>
+                        <h6>Courses teaching:</h6>
+                        <ul>
+                            <% for (let course of teacher.courses) { %>
+                                <li><p><%= course.name %></p></li>
+                            <% } %>
+                        </ul>
+                    <% } else { %>
+                        <p>He got no courses</p>
                     <% } %>
-
                     <div class="card__actions">
                         <a href="/edit-teacher/<%= teacher._id %>?edit=true" class="btn">Edit</a>
-                        <!-- <form action="/admin/delete-product" method="POST"> -->
-                            <input type="hidden" value="<%= teacher._id %>" name="courseId">
-                            <button class="btn" type="button" onclick="deleteProduct(this)">Delete</button>
-                        <!-- </form> -->
+                        <form action="/teacher-activity" method="POST">
+                            <input type="hidden" value="<%= teacher._id %>" name="teacherId">
+                            <% if (!teacher.isActive) { %>
+                                <button class="btn" type="submit">Activate</button>
+                            <% } else { %>
+                                <button class="btn" type="submit">Deactivate</button> 
+                            <% } %>
+                        </form>
                     </div>
                 </article>
                 <% } %>

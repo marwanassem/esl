@@ -39,7 +39,7 @@ app.use(session({
     saveUninitialized: false,
     store: store,
     cookie: {
-        expires: new Date(Date.now() + 1200000)
+        expires: new Date(Date.now() + 12000000)
     }
 }));
 app.use((req, res, next) => {
