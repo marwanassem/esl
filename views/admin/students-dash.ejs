@@ -1,0 +1,39 @@
+<%- include('./admin-includes/head.ejs') %>
+<%- include('./admin-includes/navigation.ejs') %>
+
+<div class="col py-3">
+    <form class="" action="/students-dash" method="POST">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="searchChoice" id="Schools" value="school">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Schools
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="searchChoice" id="Center" value="center">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Center
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="searchChoice" id="Private" value="private">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Private
+            </label>
+          </div>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <div class="container" style="padding: 1rem;">
+        <% if(searchResult) { %>
+            <ul class="list-group">
+                <% for (let student of students) { %>
+                    <li class="list-group-item"><a href="#"><%= student.name %></a></li>
+                <% } %>
+            </ul>
+        <% } %>
+      </div>
+      
+</div>
+ 
+
+  </body>

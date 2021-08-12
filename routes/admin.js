@@ -30,7 +30,8 @@ router.post('/add-teacher', isAdmin, [
     body('password', 'Please enter a password with atleast 5 characters')
         .isLength({min: 5}).trim(),
 ], adminController.postAddTeacher);
-router.get('/students-dash');
+router.get('/students-dash', isAdmin, adminController.getStudentsDash);
+router.post('/students-dash', isAdmin, adminController.postStudentsSearch);
 
 
 
