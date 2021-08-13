@@ -17,7 +17,8 @@ exports.getCoursesDash = (req, res, next) => {
         return res.render('admin/courses-dash', {
             courses: courses,
             pageTitle: 'Courses Dashboard',
-            user: req.session.user
+            user: req.session.user,
+            searchResult: false
         });
     }).catch(err => {
         console.log(err);
@@ -59,7 +60,6 @@ exports.postAddCourse = (req, res, next) => {
     let instructor;
     Teacher.findOne({email: instructorMail}).then(teacher => {
         instructor = teacher;
-        console.log(instructor);
         const course = new Course({
             name: title,
             session: session,
@@ -105,7 +105,6 @@ exports.postAddTeacher = (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
     const errors = validationResult(req);
-    console.log(errors);
     if (!errors.isEmpty()) {
         return res.render('admin/add-teacher', {
             errorMessage: errors.array()[0],
@@ -127,6 +126,44 @@ exports.postAddTeacher = (req, res, next) => {
             res.redirect('/teachers-dash');
         })
         .catch(err => console.log(err));
+};
+
+exports.getEditTeacher = (req, res, next) => {
+    const teacherId = req.params.teacherId;
+    console.log(teacherId);
+    Teacher.findById(teacherId).then(teacher => {
+        if (!teacher) {
+            throw new Error ('Error fetching the teacher data.');
+        }
+        return res.render('admin/edit-teacher', {
+            teacher: teacher,
+            user: req.session.user,
+            pageTitle: 'Teacher Editing Page',
+            path: 'edit-teacher'
+        });
+    }).catch(err => console.log(err))
+};
+
+exports.postEditTeacher = (req, res, next) => {
+    const teacherId = req.body.teacherId;
+    Teacher.findById(teacherId).then(teacher => {
+        if (!teacher) {
+            throw new Error ('Error fetching the teacher data.')
+        }
+        teacher.name = req.body.name;
+        teacher.email = req.body.email;
+        return teacher.save();
+    })
+    .then(result => {
+        Teacher.find().then(teachers => {
+            return res.render('admin/teachers-dash', {
+                teachers: teachers,
+                pageTitle: 'Teachers Dashboard',
+                user: req.session.user
+            });
+        });
+    })
+    .catch(err => console.log(err))
 };
 
 exports.teacherActivity = (req, res, next) => {
@@ -152,7 +189,7 @@ exports.teacherActivity = (req, res, next) => {
 
 exports.getStudentsDash = (req, res, next) => {
     // filter students by (private, school or center)
-    // render the list of students
+    //  render the list of students
     // add an option to save an excel sheet with all of their info
     return res.render('admin/students-dash', {
         user: req.session.user,
@@ -172,6 +209,24 @@ exports.postStudentsSearch = (req, res, next) => {
             user: req.session.user,
             searchResult: true,
             students: students
+        });
+    }).catch(err => console.log(err))
+};
+
+exports.postCourseSearch = (req, res, next) => {
+    var searchChoice = req.body.searchChoice;
+    var c = searchChoice == 'true' ? true : false;
+    Course.find({isActive: c}).then(courses => {
+        if (!courses) {
+            return res.render('admin/courses-dash', {
+                user: req.session.user,
+                searchResult: false
+            });
+        }
+        return res.render('admin/courses-dash', {
+            user: req.session.user,
+            searchResult: true,
+            courses: courses
         });
     }).catch(err => console.log(err))
 };

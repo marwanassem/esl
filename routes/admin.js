@@ -31,9 +31,10 @@ router.post('/add-teacher', isAdmin, [
         .isLength({min: 5}).trim(),
 ], adminController.postAddTeacher);
 router.post('/teacher-activity', isAdmin, adminController.teacherActivity);
+router.get('/edit-teacher/:teacherId', adminController.getEditTeacher);
+router.post('/edit-teacher/:teacherId', adminController.postEditTeacher);
 router.get('/students-dash', isAdmin, adminController.getStudentsDash);
 router.post('/students-dash', isAdmin, adminController.postStudentsSearch);
-
-
+router.post('/courses-dash', isAdmin, adminController.postCourseSearch);
 
 module.exports = router;

@@ -1,38 +1,31 @@
 <%- include('./admin-includes/head.ejs') %>
-<link rel="stylesheet" href="/css/product.css">
-
 <%- include('./admin-includes/navigation.ejs') %>
-<main>
-    <% if (courses.length > 0) { %>
-        <div class="grid">
-            <% for (let course of courses) { %>
-                <article class="card product-item">
-                    <header class="card__header">
-                        <h1 class="product__title">
-                            <%= course.name %>
-                        </h1>
-                    </header>
-                    <div class="card__content">
-                        <h2 class="product__description">
-                            <%= course.teacherId.name %>
-                        </h2>
-                        <p class="product__description">
-                            <%= course.description %>
-                        </p>
-                    </div> 
-                    <div class="card__actions">
-                        <a href="/admin/edit-course/<%= course._id %>?edit=true" class="btn">Edit</a>
-                        <!-- <form action="/admin/delete-product" method="POST"> -->
-                            <input type="hidden" value="<%= course._id %>" name="courseId">
-                            <button class="btn" type="button" onclick="deleteProduct(this)">Delete</button>
-                        <!-- </form> -->
-                    </div>
-                </article>
+
+<div class="col py-3">
+    <form class="" action="/courses-dash" method="POST">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="searchChoice" id="active" value="true">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Active
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="searchChoice" id="non-active" value="false">
+            <label class="form-check-label" for="flexRadioDefault2">
+              Non Active
+            </label>
+          </div>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <div class="container" style="padding: 1rem;">
+        <% if (searchResult) { %>
+            <ul class="list-group">
+                <% for (let course of courses) { %>
+                    <li class="list-group-item"><a href="#"><%= course.name %></a></li>
                 <% } %>
-        </div>
-        <% } else { %>
-            <h1>No Courses for now!</h1>
+            </ul>
         <% } %>
-            <a href="/add-course">Add new Course</a>
-</main>
-    
+      </div>
+      <a href="/add-course" class="btn btn-outline-success">Add new course to the Network</a>
+</div>
+</body>

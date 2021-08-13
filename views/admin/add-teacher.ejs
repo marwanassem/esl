@@ -4,7 +4,6 @@
 
 <body>
     <%- include('./admin-includes/navigation.ejs') %>
-
     <main>
         <% if (errorMessage) { %>
             <div class="user-message user-message--error"><%= errorMessage %></div>
@@ -29,10 +28,6 @@
                 <label for="confimPassword">Confirm Password</label>
                 <input type="password" name="confimPassword" id="confimPassword">
             </div>
-
-           
-
             <button class="btn" type="submit">Add Teacher</button>
         </form>
     </main>
-<!-- <%- include('../includes/end.ejs') %> -->

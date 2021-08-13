@@ -24,10 +24,10 @@
                             <% } %>
                         </ul>
                     <% } else { %>
-                        <p>He got no courses</p>
+                        <p>0 Courses teaching for now</p>
                     <% } %>
                     <div class="card__actions">
-                        <a href="/edit-teacher/<%= teacher._id %>?edit=true" class="btn">Edit</a>
+                        <a href="/edit-teacher/<%= teacher._id %>/" class="btn">Edit</a>
                         <form action="/teacher-activity" method="POST">
                             <input type="hidden" value="<%= teacher._id %>" name="teacherId">
                             <% if (!teacher.isActive) { %>

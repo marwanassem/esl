@@ -1,0 +1,20 @@
+<%- include('./admin-includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/product.css">
+
+<body>
+    <%- include('./admin-includes/navigation.ejs') %>
+    <main>
+        <form  class="product-form" action="/edit-teacher/<%= teacher._id %>" method="POST">
+            <input type="hidden" name="teacherId" value="<%= teacher._id %>">
+            <div class="form-control">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="<%= teacher.name %>">
+            </div>
+            <div class="form-control">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" value="<%= teacher.email %>">
+            </div>           
+            <button class="btn" type="submit">Confirm Editing</button>
+        </form>
+    </main>

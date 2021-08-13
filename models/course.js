@@ -31,7 +31,11 @@ const courseSchema = new Schema({
     assignments: [{
         type: Schema.Types.ObjectId,
         ref: 'Assignment'
-    }]
+    }],
+    isActive: {
+        type: Boolean,
+        default: true
+    }
 });
 
 module.exports = mongoose.model('Course', courseSchema);
