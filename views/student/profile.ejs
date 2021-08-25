@@ -18,12 +18,18 @@
     <div class="overlay"></div>
     <div class="container">
     <div class="row no-gutters slider-text align-items-center">
-    <div class="col-lg-5">
+        <div class="col-lg-5">
         <h3><%= user.name %></h3>
-        <h5>Your enrolled Courses:</h5>
-        <% for (let course of studentCourses) { %>
-            <h5><a href="/<%= course._id %>"><%= course.name %></a></h5>
-        <% } %>
+        <div class="container">
+            <% if (student.courses.length > 0) { %>
+                <h5>Your enrolled Courses:</h5>
+                <% for (let course of student.courses) { %>
+                    <h5><a href="/<%= course._id %>"><%= course.name %></a></h5>
+                <% } %>
+            <% } else { %>
+                <h5>You haven't enrolled in any course</h5>
+            <% } %>
+        </div>
     </div>
     </div>
     </div>

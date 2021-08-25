@@ -36,19 +36,17 @@
             <p class="course-price mb-0"><span><%= course.pricePerSession %></span></p>
             </div>
             <div class="text-center">
-            <a 
-                href="<% if (isAuthenticated) { %>/enroll<% } else { %> # <% } %>" 
-                class="btn d-block btn-primary btn-outline-primary py-3">
-                Enroll Now!
-            </a>
+            <form 
+                action="<% if (isAuthenticated) { %>/courses/<%= course._id %>/enroll<% } else { %> # <% } %>" 
+                method="post">
+                <button type="submit" class="btn d-block btn-primary btn-outline-primary py-3">
+                    Enroll Now!
+                </button>
+            </form>
 
             </div>
             </div>
             </div>
             <% } %>
     <% } %> 
-
-<!-- Mirrored from preview.colorlib.com/theme/academia/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 09 Jun 2021 13:28:55 GMT -->
-
-
 <%- include('../includes/end.ejs') %>

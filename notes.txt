@@ -1,4 +1,5 @@
-ERROR HANDLING  
+ERROR HANDLING 
+=> check postenroll in student cntrl
 
 css classes need to change in the EJS'
 

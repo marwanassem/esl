@@ -8,26 +8,14 @@ const student = require('../models/student');
 
 exports.getProfile = (req, res, next) => {
     const studentId = req.params.studentId;
-    let studentCourses = [];
-    Student.findById(studentId).then(student => {
+    Student.findById(studentId).populate('courses').then(student => {
         if (!student) {
             return res.render('student/profile', {
                 pageTitle: 'Profile Info'
             });
         }
-        let coursesArr = [...student.courses];
-        for(let i = 0; i < coursesArr.length; i++) {
-            Course.findById(coursesArr[i]).then(course => {
-                var obj = {};
-                obj[course.name] = [...course];
-                studentCourses.push(obj);
-            }).catch(err => console.log(err));
-        }
-    })
-    .then(result => {
-        console.log(studentCourses);
         return res.render('student/profile', {
-            studentCourses: studentCourses,
+            student: student,
             pageTitle: 'Profile Info',
             user: req.user
         });
@@ -38,14 +26,21 @@ exports.getProfile = (req, res, next) => {
 exports.postEnroll = (req, res, next) => {
     const student = req.user;
     const courseId = req.params.courseId;
+    console.log(courseId);
     Course.findById(courseId).then(course => {
         if (!course) {
             return res.render('404');
         }
-        console.log(req.user);
+        for(var i = 0; i < student.courses.length; i++) {
+            if (student.courses[i] == courseId) {
+                var err = new Error('You already enrolled in this course.');
+                return next(err);
+            }
+        }
         student.courses.push(course);
         course.students.push(student);
         course.save();
+        console.log(course.students.length);
         return student.save();
     })
     .then(result => {
